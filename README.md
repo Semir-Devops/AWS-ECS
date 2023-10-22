@@ -10,7 +10,7 @@ In this project I am creating an ECS cluster to run a Jenkins application, a doc
 
 ## Prerequisites:
 
- - ALB (with port 80 listener open & target group listener on port 8080)
+ - ALB (with port 80 inbound listener open & target group listener on port 8080)
  - Jenkins Docker image URI found on Dockerhub:
    - ``` "jenkins/jenkins:lts-jdk11" ```
  - ecsTaskExecutionRole Role to allow ECS to run on your account (IAM Role as shown below with permission):
@@ -28,3 +28,32 @@ Below is the screeshot of our cluster, when configuring:
 
 ![image](https://github.com/Semir-Devops/AWS-ECS/assets/144611511/5f8dc57b-9683-457e-bd20-f77b0efe1374)
 
+<hr/>
+
+The next step is to create a Task definition, this will add the Jenkins docker image to your AWS to run it & allows to be reused in other clusters.
+
+When configuring:
+ - Use the docker image URI above in the container section with containr port mapped to 8080 using HTTP
+ - Fargate Launch Type
+ - ecsTask Role you have created
+
+![image](https://github.com/Semir-Devops/AWS-ECS/assets/144611511/8ed8dfd3-0522-443c-97b6-c801a9fac31b)
+
+<hr/>
+
+Now that we have a task ready to be run, we will create a service under our new cluster
+
+When configuring:
+ - Use Task definition you have created
+ - Fargate Launch Type
+ - Service application type
+ - Any security group with port 80 http inbound rule & TCP inbound rule allowing your ALB secutiry group
+ - configure your Load Balancer you have created
+
+The security Group:
+
+![image](https://github.com/Semir-Devops/AWS-ECS/assets/144611511/d746cca5-b146-420b-8b84-fb8e83b1c96d)
+
+If everything has been configured correctly, your final step is to access your container from the ALB DNS name.<br/>You should see the Jenkins setup page:
+
+![image](https://github.com/Semir-Devops/AWS-ECS/assets/144611511/a1145858-8823-40e7-8204-cdb5aa0285e9)
