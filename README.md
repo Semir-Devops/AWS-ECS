@@ -54,6 +54,11 @@ The security Group:
 
 ![image](https://github.com/Semir-Devops/AWS-ECS/assets/144611511/d746cca5-b146-420b-8b84-fb8e83b1c96d)
 
+The target group:
+
+![image](https://github.com/Semir-Devops/AWS-ECS/assets/144611511/0a82bc37-6795-463e-8227-a342ba11c6e8)
+
+
 If everything has been configured correctly, your final step is to access your container from the ALB DNS name.<br/>You should see the Jenkins setup page:
 
 ![image](https://github.com/Semir-Devops/AWS-ECS/assets/144611511/a1145858-8823-40e7-8204-cdb5aa0285e9)
